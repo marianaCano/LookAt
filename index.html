@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mariana Cano</title>
+    <style>
+        img {
+            position: relative;
+            left: 64px;
+            top: 64px;
+        }     
+    </style>
+
+</head>
+
+<body>
+    <img id="mainImage" src="imgs/normi.jpg"
+    height="400" width="360"/>
+
+    <script>
+        const RAD_TO_DEG = 180/Math.PI; 
+        const HALF = 0.5;
+        const images = {
+            right: 'right.jpg',
+            rightUp: 'rightUp.jpg',
+            up: 'up.jpg',
+            leftUp: 'leftUp.jpg',
+            left: 'left.jpg',
+            leftDown: 'leftDown.jpg',
+            down: 'down.jpg',
+            rightDown: 'rightDown.jpg'
+        };
+
+        const imageElement = document.getElementById("mainImage");
+
+        document.addEventListener('mousemove', whenMouseMove);
+
+        function whenMouseMove(event) {
+            console.log('X: ' + event.clientX + ' event.clientY: ' + event.clientY);
+            console.log('ELEMENT X: ' + imageElement.offsetLeft + ' ELEMENT Y: ' + imageElement.offsetTop)
+
+            const mousePos = {
+                x: event.clientX,
+                y: event.clientY
+            };
+            const elementPos = {
+                x: imageElement.offsetLeft + imageElement.offsetWidth * HALF,
+                y: imageElement.offsetTop + imageElement.offsetHeight * HALF
+            };
+
+            const diff = {
+                x: mousePos.x - elementPos.x,
+                y: mousePos.y - elementPos.y
+            };
+
+            const angle = Math.atan2(diff.y, diff.x) * RAD_TO_DEG;
+
+            if (angle > -20 && angle < 20) {
+                imageElement.src = 'imgs/' + images.right;
+            } else if (angle > -70 && angle < -20) {
+                imageElement.src = 'imgs/' + images.rightUp;
+            } else if (angle > -110 && angle < -70) {
+                imageElement.src = 'imgs/' + images.up;
+            } else if (angle > -150 && angle < -110) {
+                imageElement.src = 'imgs/' + images.leftUp; 
+            } else if (angle > 70 && angle < 110) {
+                imageElement.src = 'imgs/' + images.down;
+            } else if (angle > 20 && angle < 70) {
+                imageElement.src = 'imgs/' + images.rightDown;
+            } else if (angle > 110 && angle < 150) {
+                imageElement.src = 'imgs/' + images.leftDown;
+            } else if (angle > -150 && angle < 190) {
+                imageElement.src = 'imgs/' + images.left;
+            }
+
+            console.log(angle);
+        }
+    </script>
+
+</body>
+
+</html>
